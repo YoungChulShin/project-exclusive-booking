@@ -6,9 +6,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import project.exclusivebooking.adapter.websocket.message.CategoryEventMessage;
-import project.exclusivebooking.adapter.websocket.message.CategoryEventType;
-import project.exclusivebooking.adapter.websocket.message.CategoryJoinRequestMessage;
+import project.exclusivebooking.adapter.websocket.message.BookingEventMessage;
+import project.exclusivebooking.adapter.websocket.message.BookingEventType;
+import project.exclusivebooking.adapter.websocket.message.CategoryJoinMessage;
 
 @Slf4j
 @Controller
@@ -19,7 +19,7 @@ class BookingController {
 
   @MessageMapping("/join")
   public void join(
-      final CategoryJoinRequestMessage message,
+      final CategoryJoinMessage message,
       final SimpMessageHeaderAccessor headerAccessor) {
     final String sessionId = headerAccessor.getSessionId();
     log.info("Message received[{}]: {}", sessionId, message);
@@ -27,8 +27,8 @@ class BookingController {
     // TODO [ycshin]: destination을 설정으로 분리
     messagingTemplate.convertAndSend(
         "/topic/" + message.channelId(),
-        new CategoryEventMessage(
-            CategoryEventType.USER_JOIN,
+        new BookingEventMessage(
+            BookingEventType.CATEGORY_JOIN,
             message.userName(),
             null));
   }

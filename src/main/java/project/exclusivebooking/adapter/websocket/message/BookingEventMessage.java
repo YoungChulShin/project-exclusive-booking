@@ -8,8 +8,8 @@ package project.exclusivebooking.adapter.websocket.message;
  * 사용자 정보
  * 예약 정보
  */
-public record CategoryEventMessage(
-    CategoryEventType eventType,
+public record BookingEventMessage(
+    BookingEventType eventType,
     String userName,
     String ticketId
 ) {

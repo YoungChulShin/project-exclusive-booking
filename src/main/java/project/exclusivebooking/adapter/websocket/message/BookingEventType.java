@@ -1,11 +1,11 @@
 package project.exclusivebooking.adapter.websocket.message;
 
-public enum CategoryEventType {
+public enum BookingEventType {
 
   /**
    * 사용자 카테고리 입장
    */
-  USER_JOIN,
+  CATEGORY_JOIN,
 
   /**
    * 티켓 점유

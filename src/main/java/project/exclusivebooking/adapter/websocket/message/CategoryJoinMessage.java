@@ -1,6 +1,6 @@
 package project.exclusivebooking.adapter.websocket.message;
 
-public record CategoryJoinRequestMessage(
+public record CategoryJoinMessage(
     String channelId,
     String userName
 ) {
