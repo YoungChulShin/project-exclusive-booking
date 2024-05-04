@@ -16,12 +16,13 @@ function connect() {
   var socket = new SockJS('/ws');
   stompClient = Stomp.over(socket);
   var channelId = $("#channelId").val();
+
   stompClient.connect({}, function (frame) {
     setConnected(true);
     console.log('Connected: ' + frame);
-    stompClient.subscribe('/topic/' + channelId, function (greeting) {
-      console.log('Received a message from /topic/greetings: ' + greeting.body);
-      showGreeting(JSON.parse(greeting.body).content);
+    stompClient.subscribe('/topic/' + channelId, function (message) {
+      console.log('Received a message from /topic/' + channelId + ': ' + message.body);
+      handleSubscribeMessage(JSON.parse(message.body));
     });
     stompClient.subscribe('/user/queue/errors', function (message) {
       console.log('Received a message from /topic/greetings: ' + message.body);
@@ -46,8 +47,11 @@ function sendName() {
       }));
 }
 
-function showGreeting(message) {
-  $("#greetings").append("<tr><td>" + message + "</td></tr>");
+function handleSubscribeMessage(message) {
+  if (message.eventType === 'CATEGORY_JOIN') {
+    console.log('user join: ' + message.userName)
+    $("#greetings").append("<tr><td>" + "user join: " + message.userName + "</td></tr>");
+  }
 }
 
 $(function () {
