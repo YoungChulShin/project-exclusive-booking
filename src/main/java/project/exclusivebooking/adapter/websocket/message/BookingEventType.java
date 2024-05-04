@@ -10,5 +10,5 @@ public enum BookingEventType {
   /**
    * 티켓 점유
    */
-  EXCLUSIVE_TICKET
+  VIEW_TICKET
 }

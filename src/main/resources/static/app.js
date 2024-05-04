@@ -47,10 +47,20 @@ function sendName() {
       }));
 }
 
+function viewTocket() {
+  stompClient.send("/app/category/ticket/view", {},
+      JSON.stringify({
+        'channelId': $("#channelId").val(),
+        'ticketId': $("#ticketId").val(),
+        'userName': $("#name").val(),
+      }));
+}
+
 function handleSubscribeMessage(message) {
   if (message.eventType === 'CATEGORY_JOIN') {
-    console.log('user join: ' + message.userName)
     $("#greetings").append("<tr><td>" + "user join: " + message.userName + "</td></tr>");
+  } else if (message.eventType === 'VIEW_TICKET') {
+    $("#greetings").append("<tr><td>" + "user : " + message.userName + ", exclude ticket: " + message.body.ticketId + "</td></tr>");
   }
 }
 
@@ -61,4 +71,5 @@ $(function () {
   $( "#connect" ).click(function() { connect(); });
   $( "#disconnect" ).click(function() { disconnect(); });
   $( "#send" ).click(function() { sendName(); });
+  $( "#viewTicket" ).click(function() { viewTocket(); });
 });
