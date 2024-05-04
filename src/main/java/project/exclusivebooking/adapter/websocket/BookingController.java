@@ -17,8 +17,8 @@ class BookingController {
 
   private final SimpMessagingTemplate messagingTemplate;
 
-  @MessageMapping("/join")
-  public void join(
+  @MessageMapping("/category/join")
+  public void joinCategory(
       final CategoryJoinMessage message,
       final SimpMessageHeaderAccessor headerAccessor) {
     final String sessionId = headerAccessor.getSessionId();
@@ -32,5 +32,4 @@ class BookingController {
             message.userName(),
             null));
   }
-
 }

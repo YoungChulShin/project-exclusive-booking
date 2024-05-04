@@ -40,7 +40,7 @@ function disconnect() {
 }
 
 function sendName() {
-  stompClient.send("/app/join", {},
+  stompClient.send("/app/category/join", {},
       JSON.stringify({
         'channelId': $("#channelId").val(),
         'userName': $("#name").val(),
