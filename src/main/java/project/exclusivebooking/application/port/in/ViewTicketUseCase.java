@@ -1,8 +1,5 @@
 package project.exclusivebooking.application.port.in;
 
-import project.exclusivebooking.application.exceptions.LeaveTicketFailException;
-import project.exclusivebooking.application.exceptions.ViewTicketFailedException;
-
 public interface ViewTicketUseCase {
 
   /**
@@ -10,14 +7,14 @@ public interface ViewTicketUseCase {
    * @param ticketId 티켓 아이디
    * @param username 티켓을 보려는 사용자
    */
-  void view(final String ticketId, final String username) throws ViewTicketFailedException;
+  void view(final String ticketId, final String username);
 
   /**
    * 확인하고 있는 티켓에서 나옵니다.
    * @param ticketId 티켓 아이디
    * @param username 티켓을 보고있는 사용자
    */
-  void leave(final String ticketId, final String username) throws LeaveTicketFailException;
+  void leave(final String ticketId, final String username);
 
 
 }

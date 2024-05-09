@@ -4,18 +4,22 @@ import org.springframework.stereotype.Service;
 import project.exclusivebooking.application.exceptions.LeaveTicketFailException;
 import project.exclusivebooking.application.exceptions.ViewTicketFailedException;
 import project.exclusivebooking.application.port.in.ViewTicketUseCase;
+import project.exclusivebooking.application.port.out.TicketLockPort;
 
 @Service
 class ViewTicketService implements ViewTicketUseCase {
 
+  private static final long TICKET_LOCK_SECONDS = 180;
+
+  private final TicketLockPort ticketLockPort;
+
   @Override
-  public void view(String ticketId, String username) throws ViewTicketFailedException {
-    // 티켓이 점유중인지 확인
-    // 티켓 점유
+  public void view(String ticketId, String username) {
+    ticketLockPort.lockTicket(ticketId, username, TICKET_LOCK_SECONDS);
   }
 
   @Override
-  public void leave(String ticketId, String username) throws LeaveTicketFailException {
-
+  public void leave(String ticketId, String username) {
+    ticketLockPort.releaseTicket(ticketId, username);
   }
 }
